@@ -1,3 +1,4 @@
+import { router } from 'expo-router';
 import { useState } from 'react';
 import {
   ScrollView,
@@ -144,6 +145,22 @@ export default function BirthInputScreen() {
       };
 
       console.log('사주 입력 정보:', formData);
+
+      router.push({
+        pathname: '/result',
+        params: {
+          name,
+          gender,
+          calendarType: calendar.type,
+          leapMonth: String(calendar.leapMonth),
+          year: birthDate.year,
+          month: birthDate.month,
+          day: birthDate.day,
+          hour: birthTime.hour,
+          minute: birthTime.minute,
+          unknownTime: String(birthTime.unknown),
+        },
+      });
 
       // 다음 단계에서 API 호출 및 결과 화면 이동
     } catch (error) {

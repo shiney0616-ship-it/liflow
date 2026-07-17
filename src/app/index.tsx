@@ -1,64 +1,153 @@
-import { Pressable, StyleSheet, Text, View } from 'react-native';
+import { router } from 'expo-router';
+import {
+  Pressable,
+  SafeAreaView,
+  StyleSheet,
+  Text,
+  View,
+} from 'react-native';
+
+import {
+  colors,
+  radius,
+  spacing,
+  typography,
+} from '../theme';
 
 export default function HomeScreen() {
+  const handleStart = () => {
+    router.push('/birth-input');
+  };
+
   return (
-    <View style={styles.container}>
-      <Text style={styles.logo}>Liflow</Text>
+    <SafeAreaView style={styles.safeArea}>
+      <View style={styles.container}>
+        <View style={styles.content}>
+          <View style={styles.logo}>
+            <Text style={styles.logoText}>L</Text>
+          </View>
 
-      <View style={styles.content}>
-        <Text style={styles.title}>당신의 흐름을 읽다</Text>
-        <Text style={styles.subtitle}>
-          사주와 AI 상담으로{'\n'}
-          지금의 나를 더 깊이 이해해보세요.
-        </Text>
+          <Text style={styles.title}>Liflow</Text>
+
+          <Text style={styles.subtitle}>
+            나를 이해하고,{'\n'}
+            삶의 흐름을 발견해보세요.
+          </Text>
+
+          <View style={styles.descriptionBox}>
+            <Text style={styles.description}>
+              생년월일과 출생시간을 입력하면{'\n'}
+              나의 사주와 삶의 흐름을 살펴볼 수 있어요.
+            </Text>
+          </View>
+        </View>
+
+        <View style={styles.bottomArea}>
+          <Pressable
+            onPress={handleStart}
+            style={({ pressed }) => [
+              styles.startButton,
+              pressed && styles.startButtonPressed,
+            ]}
+          >
+            <Text style={styles.startButtonText}>시작하기</Text>
+          </Pressable>
+
+          <Text style={styles.guideText}>
+            입력한 정보는 분석을 위해서만 사용돼요.
+          </Text>
+        </View>
       </View>
-
-      <Pressable style={styles.button}>
-        <Text style={styles.buttonText}>사주 시작하기</Text>
-      </Pressable>
-    </View>
+    </SafeAreaView>
   );
 }
 
 const styles = StyleSheet.create({
+  safeArea: {
+    flex: 1,
+    backgroundColor: colors.background,
+  },
+
   container: {
     flex: 1,
-    paddingHorizontal: 24,
-    paddingTop: 80,
-    paddingBottom: 40,
-    backgroundColor: '#F8F6F1',
+    paddingHorizontal: spacing.xl,
+    paddingTop: spacing.xxl,
+    paddingBottom: spacing.lg,
   },
-  logo: {
-    fontSize: 28,
-    fontWeight: '700',
-    color: '#2F3E36',
-  },
+
   content: {
     flex: 1,
-    justifyContent: 'center',
-  },
-  title: {
-    fontSize: 34,
-    fontWeight: '700',
-    lineHeight: 44,
-    color: '#1F2A24',
-    marginBottom: 18,
-  },
-  subtitle: {
-    fontSize: 17,
-    lineHeight: 27,
-    color: '#66736C',
-  },
-  button: {
-    height: 56,
-    borderRadius: 16,
-    backgroundColor: '#2F5D50',
     alignItems: 'center',
     justifyContent: 'center',
   },
-  buttonText: {
-    fontSize: 17,
-    fontWeight: '600',
-    color: '#FFFFFF',
+
+  logo: {
+    width: 72,
+    height: 72,
+    marginBottom: spacing.lg,
+    alignItems: 'center',
+    justifyContent: 'center',
+    borderRadius: radius.round,
+    backgroundColor: colors.primaryLight,
+  },
+
+  logoText: {
+    color: colors.primary,
+    fontSize: 34,
+    lineHeight: 40,
+    fontWeight: '700',
+  },
+
+  title: {
+    color: colors.textPrimary,
+    ...typography.display,
+  },
+
+  subtitle: {
+    marginTop: spacing.md,
+    color: colors.textPrimary,
+    textAlign: 'center',
+    ...typography.title,
+  },
+
+  descriptionBox: {
+    marginTop: spacing.xl,
+    paddingHorizontal: spacing.xl,
+    paddingVertical: spacing.lg,
+    borderRadius: radius.lg,
+    backgroundColor: colors.surface,
+  },
+
+  description: {
+    color: colors.textSecondary,
+    textAlign: 'center',
+    ...typography.body,
+  },
+
+  bottomArea: {
+    gap: spacing.sm,
+  },
+
+  startButton: {
+    height: 56,
+    alignItems: 'center',
+    justifyContent: 'center',
+    borderRadius: radius.md,
+    backgroundColor: colors.primary,
+  },
+
+  startButtonPressed: {
+    backgroundColor: colors.primaryPressed,
+  },
+
+  startButtonText: {
+    color: colors.textInverse,
+    ...typography.button,
+  },
+
+  guideText: {
+    color: colors.textTertiary,
+    textAlign: 'center',
+    ...typography.caption,
   },
 });

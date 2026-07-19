@@ -84,18 +84,36 @@ export type BranchRelationType =
   | '해'
   | '삼합'
   | '방합'
-  | '원진';
+  | '원진'
+  | '귀문';
 
 export interface BranchPosition {
     position: PillarPosition;
     branch: string;
-  }
+}
   
-  export interface BranchRelation {
+export interface BranchRelation {
     type: BranchRelationType;
     subtype?: string;
     pillars: PillarPosition[];
     branches: string[];
+    element?: Element;
+    score: number;
+}
+
+export type StemRelationType =
+    | '간합';
+
+export interface StemPosition {
+    position: PillarPosition;
+    stem: string;
+}
+
+export interface StemRelation {
+    type :StemRelationType;
+    pillars: PillarPosition[];
+    stems: string[];
+    element?: Element;
     score: number;
 }
 

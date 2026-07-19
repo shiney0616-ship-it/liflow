@@ -1,10 +1,15 @@
 import {
     findBranchRelations,
+    getBanghapInfo,
     getHyungInfo,
+    getSamhapInfo,
     isChung,
+    isGwimun,
     isHae,
     isHyung,
     isPa,
+    isSamhap,
+    isWonjin,
     isYukhap,
 } from '../relations/branchRelations';
   
@@ -172,4 +177,162 @@ describe('충', () => {
           });
         });
       });
+
+      describe('삼합', () => {
+        test('신자진 수국 삼합을 판정한다', () => {
+          expect(isSamhap('申', '子', '辰')).toBe(true);
+        });
+      
+        test('순서가 달라도 삼합을 판정한다', () => {
+          expect(isSamhap('辰', '申', '子')).toBe(true);
+          expect(isSamhap('子', '辰', '申')).toBe(true);
+        });
+      
+        test('인오술 화국 삼합 정보를 반환한다', () => {
+          expect(
+            getSamhapInfo('寅', '午', '戌'),
+          ).toEqual({
+            branches: ['寅', '午', '戌'],
+            element: 'fire',
+          });
+        });
+      
+        test('두 지지만 있으면 삼합이 아니다', () => {
+          expect(isSamhap('申', '子', '午')).toBe(false);
+        });
+      
+        test('같은 지지가 중복되면 삼합이 아니다', () => {
+          expect(isSamhap('申', '子', '子')).toBe(false);
+        });
+      });
+
+      describe('getBanghapInfo', () => {
+        it('인묘진 목 방합을 찾는다', () => {
+          expect(
+            getBanghapInfo('寅', '卯', '辰'),
+          ).toEqual({
+            branches: ['寅', '卯', '辰'],
+            element: 'wood',
+          });
+        });
+      
+        it('사오미 화 방합을 찾는다', () => {
+          expect(
+            getBanghapInfo('巳', '午', '未'),
+          ).toEqual({
+            branches: ['巳', '午', '未'],
+            element: 'fire',
+          });
+        });
+      
+        it('신유술 금 방합을 찾는다', () => {
+          expect(
+            getBanghapInfo('申', '酉', '戌'),
+          ).toEqual({
+            branches: ['申', '酉', '戌'],
+            element: 'metal',
+          });
+        });
+      
+        it('해자축 수 방합을 찾는다', () => {
+          expect(
+            getBanghapInfo('亥', '子', '丑'),
+          ).toEqual({
+            branches: ['亥', '子', '丑'],
+            element: 'water',
+          });
+        });
+      });
+
+      it('지지 순서와 무관하게 방합을 찾는다', () => {
+        expect(
+          getBanghapInfo('辰', '寅', '卯'),
+        ).toEqual({
+          branches: ['寅', '卯', '辰'],
+          element: 'wood',
+        });
+      });
+
+      it('서로 다른 세 지지가 아니면 방합이 아니다', () => {
+        expect(
+          getBanghapInfo('寅', '寅', '辰'),
+        ).toBeUndefined();
+      });
+
+      it('네 기둥에서 방합을 찾는다', () => {
+        const result = findBranchRelations([
+                { position: 'year', branch: '寅' },
+                { position: 'month', branch: '卯' },
+                { position: 'day', branch: '辰' },
+                { position: 'time', branch: '子' },
+              ]);
+      
+        expect(result).toContainEqual({
+          type: '방합',
+          pillars: ['year', 'month', 'day'],
+          branches: ['寅', '卯', '辰'],
+          element: 'wood',
+          score: 4,
+        });
+      });
+
+      describe('isWonjin', () => {
+        it('자미 원진', () => {
+            expect(isWonjin('子', '未')).toBe(true);
+        });
+    
+        it('묘신 원진', () => {
+            expect(isWonjin('卯', '申')).toBe(true);
+        });
+    
+        it('원진이 아니면 false', () => {
+            expect(isWonjin('子', '午')).toBe(false);
+        });
+
+        it('원진을 찾는다', () => {
+            const result = findBranchRelations([
+                { position: 'year', branch: '子' },
+                { position: 'month', branch: '未' },
+                { position: 'day', branch: '辰' },
+                { position: 'time', branch: '酉' },
+            ]);
+        
+            expect(result).toContainEqual({
+                type: '원진',
+                pillars: ['year', 'month'],
+                branches: ['子', '未'],
+                score: 1,
+            });
+        });
+    });
+
+    describe('isGwimun', () => {
+        it('자유 귀문', () => {
+            expect(isGwimun('子', '酉')).toBe(true);
+        });
+    
+        it('묘신 귀문', () => {
+            expect(isGwimun('卯', '申')).toBe(true);
+        });
+    
+        it('귀문이 아니면 false', () => {
+            expect(isGwimun('子', '午')).toBe(false);
+        });
+
+        it('귀문을 찾는다', () => {
+            const result = findBranchRelations([
+                { position: 'year', branch: '子' },
+                { position: 'month', branch: '酉' },
+                { position: 'day', branch: '辰' },
+                { position: 'time', branch: '午' },
+            ]);
+        
+            expect(result).toContainEqual({
+                type: '귀문',
+                pillars: ['year', 'month'],
+                branches: ['子', '酉'],
+                score: 1,
+            });
+        });
+    });
   });

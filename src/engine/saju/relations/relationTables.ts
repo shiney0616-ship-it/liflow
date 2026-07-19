@@ -54,3 +54,65 @@
     ['申', '亥'],
     ['酉', '戌'],
   ] as const;
+
+  export const BRANCH_SAMHAP = [
+    {branches: ['申', '子', '辰'], element: 'water'},
+    {branches: ['亥', '卯', '未'], element: 'wood'},
+    {branches: ['寅', '午', '戌'], element: 'fire'},
+    {branches: ['巳', '酉', '丑'], element: 'metal'},
+  ] as const;
+
+  export const BRANCH_BANGHAP = [
+    {branches: ['寅', '卯', '辰'], element: 'wood'},
+    {branches: ['巳', '午', '未'], element: 'fire'},
+    {branches: ['申', '酉', '戌'], element: 'metal'},
+    {branches: ['亥', '子', '丑'], element: 'water'},
+  ] as const;
+
+  export const BRANCH_WONJIN = [
+    ['子', '未'],
+    ['丑', '午'],
+    ['寅', '酉'],
+    ['卯', '申'],
+    ['辰', '亥'],
+    ['巳', '戌'],
+  ] as const;
+
+  export const BRANCH_GWIMUN = [
+    ['子', '酉'],
+    ['丑', '午'],
+    ['寅', '未'],
+    ['卯', '申'],
+    ['辰', '亥'],
+    ['巳', '戌'],
+  ] as const;
+
+  export const STEM_HAP = [
+    {
+        stems:['甲','己'],
+        element:'earth',
+    },
+    {
+        stems:['乙','庚'],
+        element:'metal',
+    },
+    {
+        stems:['丙','辛'],
+        element:'water',
+    },
+    {
+        stems:['丁','壬'],
+        element:'wood',
+    },
+    {
+        stems:['戊','癸'],
+        element:'fire',
+    },
+  ] as const;
+
+  export const STEM_CHUNG = [
+    ['甲', '庚'],
+    ['乙', '辛'],
+    ['丙', '壬'],
+    ['丁', '癸'],
+  ] as const;

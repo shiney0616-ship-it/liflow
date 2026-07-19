@@ -5,6 +5,11 @@ import {
     type Gender,
 } from '../engine/saju';
 
+import type {
+    TenGod,
+    TwelveLifeStage,
+} from '../engine/saju';
+
 import {
     Pressable,
     ScrollView,
@@ -130,24 +135,36 @@ const result = calculateSaju({
     label="년주"
     stem={result.yearPillar.stem}
     branch={result.yearPillar.branch}
+    stemTenGod={result.yearPillar.stemTenGod}
+    branchTenGod={result.yearPillar.branchTenGod}
+    twelveLifeStage={result.yearPillar.twelveLifeStage}
   />
 
   <PillarCard
     label="월주"
     stem={result.monthPillar.stem}
     branch={result.monthPillar.branch}
+    stemTenGod={result.monthPillar.stemTenGod}
+    branchTenGod={result.monthPillar.branchTenGod}
+    twelveLifeStage={result.monthPillar.twelveLifeStage}
   />
 
   <PillarCard
     label="일주"
     stem={result.dayPillar.stem}
     branch={result.dayPillar.branch}
+    stemTenGod={result.dayPillar.stemTenGod}
+    branchTenGod={result.dayPillar.branchTenGod}
+    twelveLifeStage={result.dayPillar.twelveLifeStage}
   />
 
   <PillarCard
     label="시주"
     stem={result.timePillar?.stem ?? '?'}
     branch={result.timePillar?.branch ?? '?'}
+    stemTenGod={result.timePillar?.stemTenGod}
+    branchTenGod={result.timePillar?.branchTenGod}
+    twelveLifeStage={result.timePillar?.twelveLifeStage}
   />
 </View>
 
@@ -182,25 +199,52 @@ const result = calculateSaju({
   );
 }
 
-type PillarCardProps = {
+  type PillarCardProps = {
     label: string;
     stem: string;
     branch: string;
+    stemTenGod?: TenGod;
+    branchTenGod?: TenGod;
+    twelveLifeStage?: TwelveLifeStage;
   };
   
   function PillarCard({
     label,
     stem,
     branch,
+    stemTenGod,
+    branchTenGod,
+    twelveLifeStage,
   }: PillarCardProps) {
     return (
       <View style={styles.pillarCard}>
-        <Text style={styles.pillarLabel}>{label}</Text>
-        <Text style={styles.stem}>{stem}</Text>
-        <Text style={styles.branch}>{branch}</Text>
+        <Text style={styles.pillarLabel}>
+          {label}
+        </Text>
+  
+        <Text style={styles.tenGod}>
+          {stemTenGod ?? '-'}
+        </Text>
+  
+        <Text style={styles.stem}>
+          {stem}
+        </Text>
+  
+        <Text style={styles.branch}>
+          {branch}
+        </Text>
+
+        <Text style={styles.tenGod}>
+          {branchTenGod ?? '-'}
+        </Text>
+
+        <Text style={styles.lifeStage}>
+          {twelveLifeStage ?? '-'}
+        </Text>
       </View>
     );
   }
+
   type ElementRowProps = {
     label: string;
     count: number;
@@ -361,6 +405,18 @@ const styles = StyleSheet.create({
     fontSize: 28,
     lineHeight: 36,
     fontWeight: '700',
+  },
+
+  tenGod: {
+    marginBottom: spacing.xs,
+    color: colors.primary,
+    ...typography.caption,
+  },
+
+  lifeStage: {
+    marginTop: spacing.xs,
+    color: colors.textSecondary,
+    ...typography.caption,
   },
 
   elementCard: {

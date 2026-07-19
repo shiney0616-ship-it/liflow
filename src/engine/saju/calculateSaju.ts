@@ -6,10 +6,78 @@ import {
     getStemElement,
 } from './element';
 
+import {
+    calculateTenGod,
+    getStemYinYang,
+} from './tenGod';
+
+import {
+    calculateHiddenStems
+} from './hiddenStem';
+
+import {
+    calculateTwelveLifeStage,
+} from './twelveLifeStage';
+
 import type {
     SajuInput,
     SajuResult,
 } from './types';
+
+import type {
+    Pillar,
+} from './types';
+  
+  function createEnrichedPillar(
+    pillar: Pillar,
+    dayStem: string,
+  ): Pillar {
+    const hiddenStems =
+      calculateHiddenStems(
+        dayStem,
+        pillar.branch,
+      );
+  
+    const mainHiddenStem =
+      hiddenStems.find(
+        item => item.role === 'main',
+      );
+  
+    return {
+      ...pillar,
+  
+      stemElement: getStemElement(
+        pillar.stem,
+      ),
+  
+      branchElement: getBranchElement(
+        pillar.branch,
+      ),
+  
+      stemYinYang: getStemYinYang(
+        pillar.stem,
+      ),
+  
+      stemTenGod: calculateTenGod(
+        dayStem,
+        pillar.stem,
+      ),
+  
+      hiddenStems,
+  
+      branchMainStem:
+        mainHiddenStem?.stem,
+  
+      branchTenGod:
+        mainHiddenStem?.tenGod,
+
+      twelveLifeStage:
+        calculateTwelveLifeStage(
+          dayStem,
+          pillar.branch,
+        ),
+    };
+  }
 
 export function calculateSaju(
   input: SajuInput,
@@ -35,47 +103,34 @@ export function calculateSaju(
     minute,
   });
 
-  const yearPillar = {
-    ...calculated.yearPillar,
-    stemElement: getStemElement(
-        calculated.yearPillar.stem,
-    ),
-    branchElement: getBranchElement(
-        calculated.yearPillar.branch,
-    ),
-    };
-      
-  const monthPillar = {
-        ...calculated.monthPillar,
-        stemElement: getStemElement(
-          calculated.monthPillar.stem,
-        ),
-        branchElement: getBranchElement(
-          calculated.monthPillar.branch,
-        ),
-      };
-      
-  const dayPillar = {
-        ...calculated.dayPillar,
-        stemElement: getStemElement(
-          calculated.dayPillar.stem,
-        ),
-        branchElement: getBranchElement(
-          calculated.dayPillar.branch,
-        ),
-      };
-      
-  const timePillar = input.unknownTime
-        ? undefined
-        : {
-            ...calculated.timePillar,
-            stemElement: getStemElement(
-              calculated.timePillar.stem,
-            ),
-            branchElement: getBranchElement(
-              calculated.timePillar.branch,
-            ),
-          };
+  const dayStem =
+  calculated.dayPillar.stem;
+
+const yearPillar =
+  createEnrichedPillar(
+    calculated.yearPillar,
+    dayStem,
+  );
+
+const monthPillar =
+  createEnrichedPillar(
+    calculated.monthPillar,
+    dayStem,
+  );
+
+const dayPillar =
+  createEnrichedPillar(
+    calculated.dayPillar,
+    dayStem,
+  );
+
+const timePillar =
+  input.unknownTime
+    ? undefined
+    : createEnrichedPillar(
+        calculated.timePillar,
+        dayStem,
+      );
 
   const pillars = [
             yearPillar,

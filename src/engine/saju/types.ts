@@ -102,7 +102,8 @@ export interface BranchRelation {
 }
 
 export type StemRelationType =
-    | '간합';
+    | '간합'
+    | '간충';
 
 export interface StemPosition {
     position: PillarPosition;

@@ -1,8 +1,8 @@
 import {
-    findStemRelations,
-    getStemHapInfo,
-    isStemChung,
-    isStemHap
+  findStemRelations,
+  getStemHapInfo,
+  isStemChung,
+  isStemHap
 } from '../relations/stemRelations';
   
   describe('천간합', () => {
@@ -47,6 +47,7 @@ import {
   
       expect(result).toContainEqual({
         type: '간합',
+        relationKind: 'pair',
         pillars: ['year', 'day'],
         stems: ['甲', '己'],
         element: 'earth',
@@ -55,6 +56,7 @@ import {
   
       expect(result).toContainEqual({
         type: '간합',
+        relationKind: 'pair',
         pillars: ['month', 'time'],
         stems: ['丙', '辛'],
         element: 'water',
@@ -105,6 +107,7 @@ describe('findStemRelations', () => {
   
       expect(result).toContainEqual({
         type: '간충',
+        relationKind: 'pair',
         pillars: ['year', 'month'],
         stems: ['壬', '丙'],
         score: 3,
@@ -112,6 +115,7 @@ describe('findStemRelations', () => {
   
       expect(result).toContainEqual({
         type: '간충',
+        relationKind: 'pair',
         pillars: ['day', 'time'],
         stems: ['乙', '辛'],
         score: 3,
@@ -126,5 +130,169 @@ describe('findStemRelations', () => {
         { position: 'time', stem: '丁' },
       ]);
       expect(result).toEqual([]);
+    });
+  });
+
+  describe('쟁합', () => {
+    it('두 양간이 하나의 음간과 합하면 쟁합을 찾는다', () => {
+      const result = findStemRelations([
+        {
+          position: 'year',
+          stem: '甲',
+        },
+        {
+          position: 'month',
+          stem: '己',
+        },
+        {
+          position: 'day',
+          stem: '甲',
+        },
+        {
+          position: 'time',
+          stem: '丙',
+        },
+      ]);
+  
+      expect(result).toContainEqual({
+        type: '쟁합',
+        relationKind: 'multi',
+        pillars: [
+          'month',
+          'year',
+          'day',
+        ],
+        stems: [
+          '己',
+          '甲',
+          '甲',
+        ],
+        score: 2,
+      });
+    });
+    it('두 음간이 하나의 양간과 합하면 투합을 찾는다', () => {
+      const result = findStemRelations([
+        {
+          position: 'year',
+          stem: '己',
+        },
+        {
+          position: 'month',
+          stem: '甲',
+        },
+        {
+          position: 'day',
+          stem: '己',
+        },
+        {
+          position: 'time',
+          stem: '丙',
+        },
+      ]);
+    
+      expect(result).toContainEqual({
+        type: '투합',
+        relationKind: 'multi',
+        pillars: [
+          'month',
+          'year',
+          'day',
+        ],
+        stems: [
+          '甲',
+          '己',
+          '己',
+        ],
+        score: 2,
+      });
+    });
+
+    it('반복된 상대 천간을 중심으로 잘못된 쟁합을 만들지 않는다', () => {
+      const result = findStemRelations([
+        {
+          position: 'year',
+          stem: '甲',
+        },
+        {
+          position: 'month',
+          stem: '己',
+        },
+        {
+          position: 'day',
+          stem: '己',
+        },
+        {
+          position: 'time',
+          stem: '丙',
+        },
+      ]);
+    
+      const contestRelations = result.filter(
+        relation => relation.type === '쟁합' || relation.type === '투합',
+      );
+    
+      expect(contestRelations).toHaveLength(1);
+    });
+
+    it('서로 독립된 간합 두 개는 쟁합이 아니다', () => {
+      const result = findStemRelations([
+        {
+          position: 'year',
+          stem: '甲',
+        },
+        {
+          position: 'month',
+          stem: '己',
+        },
+        {
+          position: 'day',
+          stem: '乙',
+        },
+        {
+          position: 'time',
+          stem: '庚',
+        },
+      ]);
+    
+      expect(
+        result.some(
+          relation => relation.type === '쟁합',
+        ),
+      ).toBe(false);
+    });
+
+    it('투합을 쟁합으로 중복 검출하지 않는다', () => {
+      const result = findStemRelations([
+        {
+          position: 'year',
+          stem: '己',
+        },
+        {
+          position: 'month',
+          stem: '甲',
+        },
+        {
+          position: 'day',
+          stem: '己',
+        },
+        {
+          position: 'time',
+          stem: '丙',
+        },
+      ]);
+    
+      expect(
+        result.filter(
+          relation =>
+            relation.type === '쟁합' ||
+            relation.type === '투합',
+        ),
+      ).toHaveLength(1);
+    
+      expect(
+        result.some(
+          relation => relation.type === '쟁합',
+        ),
+      ).toBe(false);
     });
   });

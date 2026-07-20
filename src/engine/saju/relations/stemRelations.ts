@@ -115,6 +115,8 @@ export function findStemMultiRelations(
     multiRelations.push({
       type: isYangStem(sharedStem) ? '투합' : '쟁합',
       relationKind: 'multi',
+      sharedStem,
+      sharedPillar,
       pillars: [
         sharedPillar,
         ...otherPillars,

@@ -119,6 +119,8 @@ export interface StemRelation {
     stems: string[];
     element?: Element;
     score: number;
+    sharedStem?: string;
+    sharedPillar?: PillarPosition;
 }
 
 export type Pillar = {

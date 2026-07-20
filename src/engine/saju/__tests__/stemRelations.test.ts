@@ -157,6 +157,8 @@ describe('findStemRelations', () => {
       expect(result).toContainEqual({
         type: '쟁합',
         relationKind: 'multi',
+        sharedStem:'己',
+        sharedPillar:'month',
         pillars: [
           'month',
           'year',
@@ -193,6 +195,8 @@ describe('findStemRelations', () => {
       expect(result).toContainEqual({
         type: '투합',
         relationKind: 'multi',
+        sharedStem:'甲',
+        sharedPillar:'month',
         pillars: [
           'month',
           'year',

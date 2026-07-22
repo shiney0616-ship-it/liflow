@@ -28,6 +28,13 @@ export type Element =
 
 export type ElementCount = Record<Element, number>;
 
+export type ElementRelation =
+  | 'same'
+  | 'generates'
+  | 'generatedBy'
+  | 'controls'
+  | 'controlledBy';
+
 export type YinYang = 'yang' | 'yin';
 
 export type Stem =
@@ -198,3 +205,20 @@ export type SajuResult = {
 
   gongmang : GongmangResult;
 };
+
+export type MonthStrengthEffect =
+  | 'support'
+  | 'drain'
+  | 'suppress';
+
+export interface MonthStrengthResult {
+  monthBranch: Branch;
+  monthElement: Element;
+  dayMasterElement: Element;
+
+  relation: ElementRelation;
+  effect: MonthStrengthEffect;
+
+  score: number;
+  maxAbsScore: number;
+}

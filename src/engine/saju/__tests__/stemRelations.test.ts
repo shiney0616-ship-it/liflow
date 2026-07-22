@@ -211,15 +211,15 @@ describe('findStemRelations', () => {
       });
     });
 
-    it('반복된 상대 천간을 중심으로 잘못된 쟁합을 만들지 않는다', () => {
+    it('다중 간합 관계를 중복 생성하지 않는다', () => {
       const result = findStemRelations([
         {
           position: 'year',
-          stem: '甲',
+          stem: '己',
         },
         {
           position: 'month',
-          stem: '己',
+          stem: '甲',
         },
         {
           position: 'day',
@@ -231,14 +231,28 @@ describe('findStemRelations', () => {
         },
       ]);
     
-      const contestRelations = result.filter(
-        relation => relation.type === '쟁합' || relation.type === '투합',
+      const multiRelations = result.filter(
+        relation =>
+          relation.type === '쟁합' ||
+          relation.type === '투합',
       );
     
-      expect(contestRelations).toHaveLength(1);
+      expect(multiRelations).toHaveLength(1);
+
+      expect(
+        result.some(
+          relation => relation.type === '쟁합',
+        ),
+      ).toBe(false);
+      
+      expect(
+        result.some(
+          relation => relation.type === '투합',
+        ),
+      ).toBe(true);
     });
 
-    it('서로 독립된 간합 두 개는 쟁합이 아니다', () => {
+    it('서로 독립된 간합 두 개는 쟁합이나 투합이 아니다', () => {
       const result = findStemRelations([
         {
           position: 'year',
@@ -258,11 +272,13 @@ describe('findStemRelations', () => {
         },
       ]);
     
-      expect(
-        result.some(
-          relation => relation.type === '쟁합',
-        ),
-      ).toBe(false);
+      const multiRelations = result.filter(
+        relation =>
+          relation.type === '쟁합' ||
+          relation.type === '투합',
+      );
+    
+      expect(multiRelations).toEqual([]);
     });
 
     it('투합을 쟁합으로 중복 검출하지 않는다', () => {

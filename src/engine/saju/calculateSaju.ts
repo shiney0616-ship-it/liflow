@@ -1,34 +1,37 @@
 import { calculateWithLunarLibrary } from './adapters/lunarAdapter';
 
+import { calculateGongmang } from './gongmang/calculateGongmang';
+
 import {
-    calculateElementCount,
-    getBranchElement,
-    getStemElement,
+  calculateElementCount,
+  getBranchElement,
+  getStemElement,
 } from './element';
 
 import {
-    calculateTenGod,
-    getStemYinYang,
+  calculateTenGod,
+  getStemYinYang,
 } from './tenGod';
 
 import {
-    calculateHiddenStems
+  calculateHiddenStems
 } from './hiddenStem';
 
 import {
-    calculateTwelveLifeStage,
+  calculateTwelveLifeStage,
 } from './twelveLifeStage';
 
 import type {
-    SajuInput,
-    SajuResult,
+  BranchPosition,
+  SajuInput,
+  SajuResult
 } from './types';
 
 import type {
-    Pillar,
+  Pillar,
 } from './types';
   
-  function createEnrichedPillar(
+function createEnrichedPillar(
     pillar: Pillar,
     dayStem: string,
   ): Pillar {
@@ -77,7 +80,7 @@ import type {
           pillar.branch,
         ),
     };
-  }
+}
 
 export function calculateSaju(
   input: SajuInput,
@@ -132,15 +135,42 @@ const timePillar =
         dayStem,
       );
 
-  const pillars = [
+const pillars = [
             yearPillar,
             monthPillar,
             dayPillar,
             ...(timePillar ? [timePillar] : []),
           ];
           
-  const elementCount =
-            calculateElementCount(pillars);
+const elementCount = calculateElementCount(pillars);
+
+const branchPositions: BranchPosition[] = [
+              {
+                position: 'year',
+                branch: yearPillar.branch,
+              },
+              {
+                position: 'month',
+                branch: monthPillar.branch,
+              },
+              {
+                position: 'day',
+                branch: dayPillar.branch,
+              },
+            ];
+            
+            if (timePillar) {
+              branchPositions.push({
+                position: 'time',
+                branch: timePillar.branch,
+              });
+            }
+
+  const gongmang = calculateGongmang(
+              dayPillar.stem,
+              dayPillar.branch,
+              branchPositions,
+            );
 
   return {
     input,
@@ -154,5 +184,7 @@ const timePillar =
     timePillar,
 
     elementCount,
+
+    gongmang,
   };
 }

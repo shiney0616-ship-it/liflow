@@ -3,11 +3,11 @@ import type {
   TenGod,
   YinYang,
 } from './types';
-  
-  type StemInfo = {
-    element: Element;
-    yinYang: YinYang;
-  };
+
+type StemInfo = {
+  element: Element;
+  yinYang: YinYang;
+};
   
   const STEM_INFO: Record<string, StemInfo> = {
     甲: { element: 'wood', yinYang: 'yang' },

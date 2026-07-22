@@ -30,6 +30,32 @@ export type ElementCount = Record<Element, number>;
 
 export type YinYang = 'yang' | 'yin';
 
+export type Stem =
+  | '甲'
+  | '乙'
+  | '丙'
+  | '丁'
+  | '戊'
+  | '己'
+  | '庚'
+  | '辛'
+  | '壬'
+  | '癸';
+
+export type Branch = 
+  | '子'
+  | '丑'
+  | '寅'
+  | '卯'
+  | '辰'
+  | '巳'
+  | '午'
+  | '未'
+  | '申'
+  | '酉'
+  | '戌'
+  | '亥';
+
 export type TenGod =
   | '비견'
   | '겁재'
@@ -48,7 +74,7 @@ export type HiddenStemRole =
 | 'main';
 
 export type HiddenStem = {
-    stem: string;
+    stem: Stem;
     role: HiddenStemRole;
 
     element: Element;
@@ -89,14 +115,14 @@ export type BranchRelationType =
 
 export interface BranchPosition {
     position: PillarPosition;
-    branch: string;
+    branch: Branch;
 }
   
 export interface BranchRelation {
     type: BranchRelationType;
     subtype?: string;
     pillars: PillarPosition[];
-    branches: string[];
+    branches: Branch[];
     element?: Element;
     score: number;
 }
@@ -109,23 +135,23 @@ export type StemRelationType =
 
 export interface StemPosition {
     position: PillarPosition;
-    stem: string;
+    stem: Stem;
 }
 
 export interface StemRelation {
     type :StemRelationType;
     relationKind: 'pair' | 'multi';
     pillars: PillarPosition[];
-    stems: string[];
+    stems: Stem[];
     element?: Element;
     score: number;
-    sharedStem?: string;
+    sharedStem?: Stem;
     sharedPillar?: PillarPosition;
 }
 
 export type Pillar = {
-    stem: string;
-    branch: string;
+    stem: Stem;
+    branch: Branch;
     full: string;
   
     stemElement?: Element;
@@ -136,11 +162,16 @@ export type Pillar = {
 
     hiddenStems?: HiddenStem[];
 
-    branchMainStem?: string;
+    branchMainStem?: Stem;
     branchTenGod?:TenGod;
 
     twelveLifeStage?: TwelveLifeStage;
-  };
+};
+
+export type GongmangResult = {
+  branches: [Branch, Branch];
+  hitPillars: PillarPosition[];
+};
 
 export type SajuResult = {
   input: SajuInput;
@@ -164,4 +195,6 @@ export type SajuResult = {
   timePillar?: Pillar;
 
   elementCount: ElementCount;
+
+  gongmang : GongmangResult;
 };

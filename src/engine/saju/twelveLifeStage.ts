@@ -1,41 +1,41 @@
 import type {
-    TwelveLifeStage,
-    YinYang,
+  TwelveLifeStage,
+  YinYang,
 } from './types';
   
   import {
-    getStemYinYang,
+  getStemYinYang,
 } from './tenGod';
   
-  const BRANCHES = [
-    '子',
-    '丑',
-    '寅',
-    '卯',
-    '辰',
-    '巳',
-    '午',
-    '未',
-    '申',
-    '酉',
-    '戌',
-    '亥',
-  ] as const;
-  
-  const TWELVE_LIFE_STAGES: TwelveLifeStage[] = [
-    '장생',
-    '목욕',
-    '관대',
-    '건록',
-    '제왕',
-    '쇠',
-    '병',
-    '사',
-    '묘',
-    '절',
-    '태',
-    '양',
-  ];
+const BRANCHES = [
+  '子',
+  '丑',
+  '寅',
+  '卯',
+  '辰',
+  '巳',
+  '午',
+  '未',
+  '申',
+  '酉',
+  '戌',
+  '亥',
+] as const;
+
+const TWELVE_LIFE_STAGES: TwelveLifeStage[] = [
+  '장생',
+  '목욕',
+  '관대',
+  '건록',
+  '제왕',
+  '쇠',
+  '병',
+  '사',
+  '묘',
+  '절',
+  '태',
+  '양',
+];
   
   /**
    * 각 천간의 장생 시작 지지

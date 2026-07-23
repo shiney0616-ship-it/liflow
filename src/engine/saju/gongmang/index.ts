@@ -1,2 +1,2 @@
-export * from './gongmangTable';
 export * from './calculateGongmang';
+export * from './gongmangTable';

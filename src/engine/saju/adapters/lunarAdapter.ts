@@ -1,8 +1,10 @@
 import { Lunar, Solar } from 'lunar-javascript';
 
 import type {
-    CalendarType,
-    Pillar,
+  Branch,
+  CalendarType,
+  Pillar,
+  Stem,
 } from '../types';
 
 export type LunarAdapterInput = {
@@ -34,13 +36,13 @@ export type LunarAdapterResult = {
   yearPillar: Pillar;
   monthPillar: Pillar;
   dayPillar: Pillar;
-  timePillar: Pillar;
+  hourPillar: Pillar;
 };
 
 function createPillar(full: string): Pillar {
   return {
-    stem: full.charAt(0),
-    branch: full.charAt(1),
+    stem: full.charAt(0) as Stem,
+    branch: full.charAt(1) as Branch,
     full,
   };
 }
@@ -98,6 +100,6 @@ export function calculateWithLunarLibrary(
     yearPillar: createPillar(eightChar.getYear()),
     monthPillar: createPillar(eightChar.getMonth()),
     dayPillar: createPillar(eightChar.getDay()),
-    timePillar: createPillar(eightChar.getTime()),
+    hourPillar: createPillar(eightChar.getTime()),
   };
 }

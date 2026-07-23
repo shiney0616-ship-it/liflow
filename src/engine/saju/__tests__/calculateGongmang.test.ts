@@ -1,9 +1,9 @@
 import {
-    calculateGongmang,
+  calculateGongmang,
 } from '../gongmang/calculateGongmang';
 
 import type {
-    BranchPosition,
+  BranchPosition,
 } from '../types';
   
   
@@ -101,7 +101,7 @@ import type {
               branch: '丑',
             },
             {
-              position: 'time',
+              position: 'hour',
               branch: '戌',
             },
           ];

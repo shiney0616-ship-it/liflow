@@ -1,41 +1,71 @@
-import type {
+import type { ElementRelation } from '../../types';
+import type { ScoreReasonCode } from '../types';
+
+export type MonthStrengthEffect =
+  | 'support'
+  | 'drain'
+  | 'suppress';
+
+export interface MonthStrengthPolicy {
+  score: number;
+  effect: MonthStrengthEffect;
+  reasonCode: ScoreReasonCode;
+}
+
+export const MONTH_STRENGTH_MAX_SCORE = 40;
+
+export const MONTH_STRENGTH_POLICY: Record<
   ElementRelation,
-  MonthStrengthEffect,
-} from '../../types';
-  
-  export const MONTH_STRENGTH_MAX_SCORE = 40;
-  
-  export interface MonthStrengthPolicy {
-    effect: MonthStrengthEffect;
-    score: number;
-  }
-  
-  export const MONTH_STRENGTH_POLICY: Record<
-    ElementRelation,
-    MonthStrengthPolicy
-  > = {
-    same: {
-      effect: 'support',
-      score: 40,
-    },
-  
-    generates: {
-      effect: 'support',
-      score: 30,
-    },
-  
-    generatedBy: {
-      effect: 'drain',
-      score: -25,
-    },
-  
-    controlledBy: {
-      effect: 'drain',
-      score: -15,
-    },
-  
-    controls: {
-      effect: 'suppress',
-      score: -40,
-    },
-  };
+  MonthStrengthPolicy
+> = {
+  /*
+   * 월지와 일간이 같은 오행
+   */
+  same: {
+    score: 40,
+    effect: 'support',
+    reasonCode: 'MONTH_SAME',
+  },
+
+  /*
+   * 월지 오행이 일간을 생함
+   *
+   * 예: 火 → 土
+   */
+  generates: {
+    score: 30,
+    effect: 'support',
+    reasonCode: 'MONTH_GENERATES',
+  },
+
+  /*
+   * 일간이 월지 오행을 생함
+   *
+   * 월지는 일간으로부터 생을 받는 관계
+   */
+  generatedBy: {
+    score: -25,
+    effect: 'drain',
+    reasonCode: 'MONTH_GENERATED_BY',
+  },
+
+  /*
+   * 월지 오행이 일간을 극함
+   */
+  controls: {
+    score: -40,
+    effect: 'suppress',
+    reasonCode: 'MONTH_CONTROLS',
+  },
+
+  /*
+   * 일간이 월지 오행을 극함
+   *
+   * 월지는 일간에게 극을 받는 관계
+   */
+  controlledBy: {
+    score: -15,
+    effect: 'drain',
+    reasonCode: 'MONTH_CONTROLLED_BY',
+  },
+};

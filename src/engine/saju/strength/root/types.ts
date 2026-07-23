@@ -1,5 +1,7 @@
 import type {
     Branch,
+    BranchPosition,
+    HiddenStem,
     HiddenStemRole,
     PillarPosition
 } from '../../types';
@@ -25,9 +27,7 @@ export interface RootResult {
 export interface RootStrengthResult {
 
     roots: RootResult[];
-  
     totalScore: number;
-  
     details: ScoreDetail[];
 }
 
@@ -53,3 +53,13 @@ export const ROOT_STRENGTH_POLICY: Record<
         baseScore: 0,
     },
 } as const;
+
+export interface RootMatch {
+    position: BranchPosition['position'];
+    branch: BranchPosition['branch'];
+  
+    rootType: RootType;
+    hiddenStem?: HiddenStem;
+  
+    detail: ScoreDetail;
+  }

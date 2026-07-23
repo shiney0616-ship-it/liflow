@@ -21,6 +21,3 @@ export type {
   YinYang
 } from './types';
 
-export * from './elementRelations';
-export * from './strength/month';
-

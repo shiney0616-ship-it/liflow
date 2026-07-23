@@ -42,7 +42,7 @@ import {
         { position: 'year', stem: '甲' },
         { position: 'month', stem: '丙' },
         { position: 'day', stem: '己' },
-        { position: 'time', stem: '辛' },
+        { position: 'hour', stem: '辛' },
       ]);
   
       expect(result).toContainEqual({
@@ -57,7 +57,7 @@ import {
       expect(result).toContainEqual({
         type: '간합',
         relationKind: 'pair',
-        pillars: ['month', 'time'],
+        pillars: ['month', 'hour'],
         stems: ['丙', '辛'],
         element: 'water',
         score: 3,
@@ -69,7 +69,7 @@ import {
         { position: 'year', stem: '甲' },
         { position: 'month', stem: '乙' },
         { position: 'day', stem: '丙' },
-        { position: 'time', stem: '丁' },
+        { position: 'hour', stem: '丁' },
       ]);
       expect(result).toEqual([]);
     });
@@ -102,7 +102,7 @@ describe('findStemRelations', () => {
         { position: 'year', stem: '壬' },
         { position: 'month', stem: '丙' },
         { position: 'day', stem: '乙' },
-        { position: 'time', stem: '辛' },
+        { position: 'hour', stem: '辛' },
       ]);
   
       expect(result).toContainEqual({
@@ -116,7 +116,7 @@ describe('findStemRelations', () => {
       expect(result).toContainEqual({
         type: '간충',
         relationKind: 'pair',
-        pillars: ['day', 'time'],
+        pillars: ['day', 'hour'],
         stems: ['乙', '辛'],
         score: 3,
       });
@@ -127,7 +127,7 @@ describe('findStemRelations', () => {
         { position: 'year', stem: '甲' },
         { position: 'month', stem: '乙' },
         { position: 'day', stem: '丙' },
-        { position: 'time', stem: '丁' },
+        { position: 'hour', stem: '丁' },
       ]);
       expect(result).toEqual([]);
     });
@@ -149,7 +149,7 @@ describe('findStemRelations', () => {
           stem: '甲',
         },
         {
-          position: 'time',
+          position: 'hour',
           stem: '丙',
         },
       ]);
@@ -187,7 +187,7 @@ describe('findStemRelations', () => {
           stem: '己',
         },
         {
-          position: 'time',
+          position: 'hour',
           stem: '丙',
         },
       ]);
@@ -226,7 +226,7 @@ describe('findStemRelations', () => {
           stem: '己',
         },
         {
-          position: 'time',
+          position: 'hour',
           stem: '丙',
         },
       ]);
@@ -267,7 +267,7 @@ describe('findStemRelations', () => {
           stem: '乙',
         },
         {
-          position: 'time',
+          position: 'hour',
           stem: '庚',
         },
       ]);
@@ -296,7 +296,7 @@ describe('findStemRelations', () => {
           stem: '己',
         },
         {
-          position: 'time',
+          position: 'hour',
           stem: '丙',
         },
       ]);

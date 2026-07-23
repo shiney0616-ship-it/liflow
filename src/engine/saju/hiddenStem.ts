@@ -2,22 +2,19 @@
   import { getStemElement } from './element';
 
   import {
-    calculateTenGod,
-    getStemYinYang
+  calculateTenGod,
+  getStemYinYang
 } from './tenGod';
 
   import type {
-    HiddenStem,
-    HiddenStemRole,
+  Branch,
+  HiddenStem,
+  HiddenStemDefinition,
+  Stem
 } from './types';
   
-  type HiddenStemDefinition = {
-    stem: string;
-    role: HiddenStemRole;
-  };
-  
-  const BRANCH_HIDDEN_STEMS: Record<
-    string,
+const BRANCH_HIDDEN_STEMS: Record<
+    Branch,
     HiddenStemDefinition[]
   > = {
     子: [
@@ -90,8 +87,8 @@
     ],
   };
 
-  export function getHiddenStems(
-    branch: string,
+export function getHiddenStems(
+    branch: Branch,
   ): HiddenStemDefinition[] {
     const hiddenStems = BRANCH_HIDDEN_STEMS[branch];
 
@@ -103,8 +100,8 @@
     return hiddenStems;
   }
 
-  export function getMainHiddenStem(
-    branch: string,
+export function getMainHiddenStem(
+    branch: Branch,
   ): string {
     const mainStem = getHiddenStems(
         branch,
@@ -122,9 +119,9 @@
     return mainStem.stem;
   }
 
-  export function calculateHiddenStems(
-    dayStem: string,
-    branch: string,
+export function calculateHiddenStems(
+    dayStem: Stem,
+    branch: Branch,
   ): HiddenStem[] {
     return getHiddenStems(branch).map(
       ({ stem, role }) => ({

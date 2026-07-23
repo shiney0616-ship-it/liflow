@@ -1,36 +1,54 @@
+import type { DistributionStrengthResult } from './distribution/types';
+import type { MonthStrengthResult } from './month/types';
+import type { RootStrengthResult } from './root/types';
+import type { StemStrengthResult } from './stem/types';
+
 export type StrengthCategory =
   | 'month'
   | 'root'
   | 'stem'
   | 'distribution';
 
-  export type StrengthLevel =
+export type StrengthLevel =
   | 'veryWeak'
   | 'weak'
   | 'balanced'
   | 'strong'
   | 'veryStrong';
 
-  export type ScoreReasonCode =
+export type ScoreReasonCode =
   // 월령
   | 'MONTH_SAME'
   | 'MONTH_GENERATES'
+  | 'MONTH_GENERATED_BY'
   | 'MONTH_CONTROLS'
+  | 'MONTH_CONTROLLED_BY'
 
   // 통근
   | 'ROOT_MAIN'
   | 'ROOT_MIDDLE'
-  | 'ROOT_HIDDEN'
+  | 'ROOT_INITIAL'
+  | 'ROOT_NONE'
 
   // 천간
-  | 'STEM_SUPPORT'
-  | 'STEM_DRAIN'
+  | 'STEM_SAME'
+  | 'STEM_GENERATES'
+  | 'STEM_GENERATED_BY'
+  | 'STEM_CONTROLS'
+  | 'STEM_CONTROLLED_BY'
 
   // 오행
   | 'ELEMENT_BALANCED'
-  | 'ELEMENT_IMBALANCED';
+  | 'ELEMENT_IMBALANCED'
 
-  export interface ScoreDetail {
+  // 오행분포 생극
+  | 'DISTRIBUTION_SAME'
+  | 'DISTRIBUTION_GENERATED_BY'
+  | 'DISTRIBUTION_GENERATES'
+  | 'DISTRIBUTION_CONTROLS'
+  | 'DISTRIBUTION_CONTROLLED_BY';
+
+export interface ScoreDetail {
     category: StrengthCategory;
   
     baseScore: number;   // 정책상 기본 점수
@@ -41,8 +59,13 @@ export type StrengthCategory =
     metadata?: Record<string, unknown>;
   }
 
-  export interface StrengthResult {
-    totalScore:number;
-    level:StrengthLevel;
-    details:ScoreDetail[];
-}
+export interface StrengthResult {
+    month: MonthStrengthResult;
+    root: RootStrengthResult;
+    stem: StemStrengthResult;
+    distribution: DistributionStrengthResult;
+  
+    totalScore: number;
+    level: StrengthLevel;
+    details: ScoreDetail[];
+  }

@@ -24,7 +24,8 @@ import {
 import type {
   BranchPosition,
   SajuInput,
-  SajuResult
+  SajuResult,
+  Stem
 } from './types';
 
 import type {
@@ -33,7 +34,7 @@ import type {
   
 function createEnrichedPillar(
     pillar: Pillar,
-    dayStem: string,
+    dayStem: Stem,
   ): Pillar {
     const hiddenStems =
       calculateHiddenStems(
@@ -127,11 +128,11 @@ const dayPillar =
     dayStem,
   );
 
-const timePillar =
+const hourPillar =
   input.unknownTime
     ? undefined
     : createEnrichedPillar(
-        calculated.timePillar,
+        calculated.hourPillar,
         dayStem,
       );
 
@@ -139,7 +140,7 @@ const pillars = [
             yearPillar,
             monthPillar,
             dayPillar,
-            ...(timePillar ? [timePillar] : []),
+            ...(hourPillar ? [hourPillar] : []),
           ];
           
 const elementCount = calculateElementCount(pillars);
@@ -159,10 +160,10 @@ const branchPositions: BranchPosition[] = [
               },
             ];
             
-            if (timePillar) {
+            if (hourPillar) {
               branchPositions.push({
-                position: 'time',
-                branch: timePillar.branch,
+                position: 'hour',
+                branch: hourPillar.branch,
               });
             }
 
@@ -181,7 +182,7 @@ const branchPositions: BranchPosition[] = [
     yearPillar,
     monthPillar,
     dayPillar,
-    timePillar,
+    hourPillar,
 
     elementCount,
 

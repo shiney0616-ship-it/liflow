@@ -89,6 +89,11 @@ export type HiddenStem = {
     tenGod?: TenGod;
 }
 
+export type HiddenStemDefinition = {
+  stem: Stem;
+  role: HiddenStemRole;
+};
+
 export type TwelveLifeStage =
   | '장생'
   | '목욕'
@@ -107,7 +112,7 @@ export type PillarPosition =
   | 'year'
   | 'month'
   | 'day'
-  | 'time';
+  | 'hour';
 
 export type BranchRelationType =
   | '충'
@@ -175,6 +180,13 @@ export type Pillar = {
     twelveLifeStage?: TwelveLifeStage;
 };
 
+export interface FourPillars {
+  year: Pillar;
+  month: Pillar;
+  day: Pillar;
+  hour: Pillar;
+};
+
 export type GongmangResult = {
   branches: [Branch, Branch];
   hitPillars: PillarPosition[];
@@ -199,7 +211,7 @@ export type SajuResult = {
   yearPillar: Pillar;
   monthPillar: Pillar;
   dayPillar: Pillar;
-  timePillar?: Pillar;
+  hourPillar?: Pillar;
 
   elementCount: ElementCount;
 
@@ -210,15 +222,3 @@ export type MonthStrengthEffect =
   | 'support'
   | 'drain'
   | 'suppress';
-
-export interface MonthStrengthResult {
-  monthBranch: Branch;
-  monthElement: Element;
-  dayMasterElement: Element;
-
-  relation: ElementRelation;
-  effect: MonthStrengthEffect;
-
-  score: number;
-  maxAbsScore: number;
-}

@@ -1,16 +1,16 @@
 import {
-    findBranchRelations,
-    getBanghapInfo,
-    getHyungInfo,
-    getSamhapInfo,
-    isChung,
-    isGwimun,
-    isHae,
-    isHyung,
-    isPa,
-    isSamhap,
-    isWonjin,
-    isYukhap,
+  findBranchRelations,
+  getBanghapInfo,
+  getHyungInfo,
+  getSamhapInfo,
+  isChung,
+  isGwimun,
+  isHae,
+  isHyung,
+  isPa,
+  isSamhap,
+  isWonjin,
+  isYukhap,
 } from '../relations/branchRelations';
   
 describe('충', () => {
@@ -45,7 +45,7 @@ describe('충', () => {
         { position: 'year', branch: '子' },
         { position: 'month', branch: '午' },
         { position: 'day', branch: '丑' },
-        { position: 'time', branch: '子' },
+        { position: 'hour', branch: '子' },
       ]);
   
       expect(result).toContainEqual({
@@ -57,7 +57,7 @@ describe('충', () => {
   
       expect(result).toContainEqual({
         type: '충',
-        pillars: ['month', 'time'],
+        pillars: ['month', 'hour'],
         branches: ['午', '子'],
         score: 3,
       });
@@ -71,7 +71,7 @@ describe('충', () => {
   
       expect(result).toContainEqual({
         type: '육합',
-        pillars: ['day', 'time'],
+        pillars: ['day', 'hour'],
         branches: ['丑', '子'],
         score: 2,
       });
@@ -82,7 +82,7 @@ describe('충', () => {
         { position: 'year', branch: '子' },
         { position: 'month', branch: '寅' },
         { position: 'day', branch: '辰' },
-        { position: 'time', branch: '寅' },
+        { position: 'hour', branch: '寅' },
       ]);
   
       expect(result).toEqual([]);
@@ -264,7 +264,7 @@ describe('충', () => {
                 { position: 'year', branch: '寅' },
                 { position: 'month', branch: '卯' },
                 { position: 'day', branch: '辰' },
-                { position: 'time', branch: '子' },
+                { position: 'hour', branch: '子' },
               ]);
       
         expect(result).toContainEqual({
@@ -294,7 +294,7 @@ describe('충', () => {
                 { position: 'year', branch: '子' },
                 { position: 'month', branch: '未' },
                 { position: 'day', branch: '辰' },
-                { position: 'time', branch: '酉' },
+                { position: 'hour', branch: '酉' },
             ]);
         
             expect(result).toContainEqual({
@@ -324,7 +324,7 @@ describe('충', () => {
                 { position: 'year', branch: '子' },
                 { position: 'month', branch: '酉' },
                 { position: 'day', branch: '辰' },
-                { position: 'time', branch: '午' },
+                { position: 'hour', branch: '午' },
             ]);
         
             expect(result).toContainEqual({

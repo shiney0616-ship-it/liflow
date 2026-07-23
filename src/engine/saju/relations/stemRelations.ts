@@ -5,6 +5,7 @@ import {
   
 import type {
   PillarPosition,
+  Stem,
   StemPosition,
   StemRelation,
 } from '../types';
@@ -94,7 +95,7 @@ export function findStemMultiRelations(
       firstRelation.stems[sharedStemIndex];
 
     const otherPillars: PillarPosition[] = [];
-    const otherStems: string[] = [];
+    const otherStems: Stem[] = [];
 
     for (const relation of relatedHaps) {
       const sharedIndex =

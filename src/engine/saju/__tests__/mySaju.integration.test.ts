@@ -35,15 +35,15 @@ describe('내 사주 통합 테스트', () => {
     expect(result.dayPillar.stem).toBe('己');
     expect(result.dayPillar.branch).toBe('丑');
 
-    expect(result.timePillar?.stem).toBe('甲');
-    expect(result.timePillar?.branch).toBe('戌');
+    expect(result.hourPillar?.stem).toBe('甲');
+    expect(result.hourPillar?.branch).toBe('戌');
   });
 
   test('천간 십성이 정확하게 계산된다', () => {
     expect(result.yearPillar.stemTenGod).toBe('겁재');
     expect(result.monthPillar.stemTenGod).toBe('편인');
     expect(result.dayPillar.stemTenGod).toBe('비견');
-    expect(result.timePillar?.stemTenGod).toBe('정관');
+    expect(result.hourPillar?.stemTenGod).toBe('정관');
   });
 
   test('지지 본기 십성이 정확하게 계산된다', () => {
@@ -56,15 +56,15 @@ describe('내 사주 통합 테스트', () => {
     expect(result.dayPillar.branchMainStem).toBe('己');
     expect(result.dayPillar.branchTenGod).toBe('비견');
 
-    expect(result.timePillar?.branchMainStem).toBe('戊');
-    expect(result.timePillar?.branchTenGod).toBe('겁재');
+    expect(result.hourPillar?.branchMainStem).toBe('戊');
+    expect(result.hourPillar?.branchTenGod).toBe('겁재');
   });
 
   test('12운성이 정확하게 계산된다', () => {
     expect(result.yearPillar.twelveLifeStage).toBe('건록');
     expect(result.monthPillar.twelveLifeStage).toBe('제왕');
     expect(result.dayPillar.twelveLifeStage).toBe('묘');
-    expect(result.timePillar?.twelveLifeStage).toBe('양');
+    expect(result.hourPillar?.twelveLifeStage).toBe('양');
   });
 
   test('지장간이 정확하게 계산된다', () => {
@@ -140,7 +140,7 @@ describe('내 사주 통합 테스트', () => {
       },
     ]);
 
-    expect(result.timePillar?.hiddenStems).toEqual([
+    expect(result.hourPillar?.hiddenStems).toEqual([
       {
         stem: '辛',
         role: 'initial',
@@ -170,13 +170,13 @@ describe('내 사주 통합 테스트', () => {
         {position: 'year', branch: '午'},
         {position: 'month', branch: '巳'},
         {position: 'day', branch: '丑'},
-        {position: 'time', branch: '戌'},
+        {position: 'hour', branch: '戌'},
     ]);
 
     expect(result).toContainEqual({
         type: '형',
         subtype: '축술형',
-        pillars: ['day', 'time'],
+        pillars: ['day', 'hour'],
         branches: ['丑','戌'],
         score: 2,
     });
